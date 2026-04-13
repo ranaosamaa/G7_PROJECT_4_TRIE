@@ -32,6 +32,14 @@ private:
     // Purpose: Recursively find all complete words starting from the given node
     void findAllWords(TrieNode* node, string currentWord, vector<string>& results) {
         // TODO: Implement this function
+        if (node->isEndOfWord) results.push_back(currentWord);
+
+        for (int i = 0; i < 26; i++) {
+            if (node->children[i] != nullptr) {
+                char next = 'a' + i;
+                findAllWords(node->children[i], currentWord + next, results);
+            }
+        }
     }
 
 public:
