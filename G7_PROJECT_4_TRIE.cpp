@@ -79,10 +79,20 @@ using namespace std;
             // Input: word to search for (string)
             // Output: boolean indicating if the word exists
             // Purpose: Check if the complete word exists in the Trie
-            bool search(string word) {
-                // TODO: Implement this function
-                return false; // placeholder
+        bool search(string word)
+        {
+            TrieNode *node = root;
+
+            for (int i = 0; i < word.length(); i++)
+            {
+                int idx = word[i] - 'a';
+                if (node->children[idx] == nullptr)
+                    return false;
+                node = node->children[idx];
             }
+
+            return node->isEndOfWord;
+        }
 
             // Check if any word starts with the given prefix
             // Input: prefix to check (string)
