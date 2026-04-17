@@ -117,8 +117,21 @@ using namespace std;
             // Output: vector of strings that start with the prefix
             // Purpose: Find all complete words that begin with the given prefix
             vector<string> autocomplete(string prefix) {
-                vector<string> suggestions;
                 // TODO: Implement this function
+                vector<string> suggestions;
+                TrieNode* node = root;
+                if(prefix.empty()){
+                    findAllWords(node, prefix, suggestions);
+                    return suggestions;
+                }
+                                
+                for(char c : prefix){
+                    int idx = c - 'a';
+                    if (node->children[idx] == nullptr)
+                        return suggestions;
+                    node = node->children[idx];
+                }
+                findAllWords(node, prefix, suggestions);
                 return suggestions;
             }
     };
