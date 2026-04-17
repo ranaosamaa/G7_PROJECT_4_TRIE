@@ -8,6 +8,7 @@ using namespace std;
     public:
         // Each node has up to 26 children (for each letter)
         TrieNode* children[26];
+        string storedWord;
 
         // Marks if this node completes a word
         bool isEndOfWord;
@@ -25,6 +26,7 @@ using namespace std;
     class Trie {
     private:
         TrieNode* root;
+
 
         // Helper function to find all words from a node
         // Input: current node, current word formed so far, results vector to store words
@@ -73,6 +75,8 @@ using namespace std;
                 // Move to the child node
                 node = node->children[index];
             }
+            node->isEndOfWord = true;
+            node->storedWord = word;
         }
 
             // Search for a word in the Trie
@@ -84,14 +88,15 @@ using namespace std;
             TrieNode *node = root;
 
             for (int i = 0; i < word.length(); i++)
-            {
-                int idx = word[i] - 'a';
+            {   
+                char lower = tolower(word[i]); 
+                int idx = lower - 'a';
                 if (node->children[idx] == nullptr)
                     return false;
                 node = node->children[idx];
             }
 
-            return node->isEndOfWord;
+            return node->isEndOfWord && node->storedWord == word;;
         }
 
             // Check if any word starts with the given prefix
@@ -131,7 +136,7 @@ using namespace std;
                         return suggestions;
                     node = node->children[idx];
                 }
-                findAllWords(node, prefix, suggestions);
+                findAllWords(node, prefix, suggestions);    
                 return suggestions;
             }
     };
