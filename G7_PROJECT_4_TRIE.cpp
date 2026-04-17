@@ -99,8 +99,17 @@ using namespace std;
             // Output: boolean indicating if any word has this prefix
             // Purpose: Verify if the prefix exists in the Trie (doesn't need to be a complete word)
             bool startsWith(string prefix) {
-                // TODO: Implement this function
-                return false; // placeholder
+                TrieNode* node = root;
+
+                for (int i = 0; i < prefix.length(); i++)
+                {
+                    int idx = prefix[i] - 'a';
+                    if (node->children[idx] == nullptr)
+                        return false;
+                    node = node->children[idx];
+                }
+
+                return true;
             }
 
             // Get all words that start with the given prefix
